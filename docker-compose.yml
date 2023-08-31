@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    environment:
+      DB_NAME: app
+      DB_PASS: necronomicon
+      DB_USER: lcraft
+      DB_HOST: db
+    container_name: "agiotagem"
+    volumes:
+      - ./source:/home/user/app
+
+  db:
+    image: mysql:8.0-debian
+    container_name: "agiotagem_db"
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_PASSWORD: necronomicon
+      MYSQL_ROOT_PASSWORD: necronomicon
+      MYSQL_USER: lcraft
+    ports:
+      - "8001:3306"
+
+  # redis:
+  #   image: redis
+  #   container_name: "codeplay_redis_server"
+  #   ports:
+  #     - "8003:6379"
+
+  # kafka:
+  #   image: bitnami/kafka
+  #   container_name: "codeplay_kafka_service"
+  #   ports:
+  #     - "8002:2181"
